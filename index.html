@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Aymeric Weinbach, ZeCloud. Cloud, IA et code : explorez mon univers et jouez à Snake sur ma grille de contributions GitHub.">
+  <meta name="theme-color" content="#0b1216">
+  <title>ZeCloud — Du code au jeu</title>
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#game">Aller au jeu</a>
+  <div class="shell">
+    <header>
+      <a class="brand" href="https://www.zecloud.fr/" aria-label="ZeCloud, accueil du blog"><span class="brand-icon" aria-hidden="true">&gt;_</span> ZeCloud<span class="brand-dot">.</span></a>
+      <nav aria-label="Navigation principale">
+        <a href="https://www.zecloud.fr/">Le blog</a>
+        <a href="https://www.zecloud.fr/about/">À propos</a>
+        <a class="profile-link" href="https://github.com/zecloud">GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main>
+      <section class="intro" aria-labelledby="title">
+        <div>
+          <p class="eyebrow"><span aria-hidden="true" class="signal"></span> AYMERIC WEINBACH · @ZECLOUD</p>
+          <h1 id="title">Du cloud au code.<br>Du code au <span>jeu.</span></h1>
+          <p class="lead">Je construis avec le cloud et l’IA.<br>Ici, mes contributions GitHub deviennent votre terrain de jeu.</p>
+          <div class="tags" aria-label="Mes sujets"><span>Cloud</span><span>Intelligence artificielle</span><span>Open source</span></div>
+        </div>
+        <aside class="note" aria-label="À propos de cette expérience">
+          <span class="note-label">LE PETIT LABO / 01</span>
+          <p>Un jour, une case.<br>Une contribution,<br><strong>quelque chose à croquer.</strong></p>
+          <a href="https://github.com/zecloud">Explorer mes projets <span aria-hidden="true">↗</span></a>
+        </aside>
+      </section>
+
+      <section class="arcade" aria-labelledby="game-title">
+        <div class="arcade-heading">
+          <div><p class="eyebrow">CONTRIBUTION ARCADE</p><h2 id="game-title">Snake, version GitHub<span aria-hidden="true">_</span></h2></div>
+          <div class="score"><span>CASES CROQUÉES</span><strong id="score">0</strong><span id="remaining">Chargement…</span></div>
+        </div>
+        <div class="game-options">
+          <label for="speed">Rythme
+            <select id="speed" disabled>
+              <option value="240">Tranquille</option>
+              <option value="140">Classique</option>
+              <option value="step">Pas à pas · sans chrono</option>
+            </select>
+          </label>
+          <span class="board-tag"><span class="signal" aria-hidden="true"></span> 364 JOURS DE CODE</span>
+        </div>
+        <p id="data-status" class="data-status" role="status">Lecture de la grille de contributions…</p>
+        <div id="game" class="game" tabindex="0" role="group" aria-label="Plateau Snake" aria-describedby="instructions game-status position">
+          <div id="grid" class="grid" aria-hidden="true"></div>
+          <div id="overlay" class="overlay"><span class="overlay-icon" aria-hidden="true">&gt;_</span><strong id="overlay-title">Une petite pause dans le code ?</strong><span id="overlay-copy">La grille se prépare.</span></div>
+        </div>
+        <div class="game-toolbar">
+          <div class="actions">
+            <button id="toggle" class="primary" disabled>Jouer</button>
+            <button id="restart" disabled>Recommencer</button>
+          </div>
+          <p id="game-status" role="status" aria-live="polite" aria-atomic="true">Le jeu ne démarre pas automatiquement.</p>
+        </div>
+        <p id="position" class="position" aria-live="off"></p>
+        <div class="below-board">
+          <div id="instructions">
+            <h3>Un peu de code. Beaucoup de réflexes.</h3>
+            <p>Attrapez la case marquée d’un point, sans toucher les bords ni votre queue. Les jours de contribution sont les cibles ; leur intensité colore le terrain, sans créer d’obstacles.</p>
+            <p><kbd>↑</kbd> <kbd>←</kbd> <kbd>↓</kbd> <kbd>→</kbd> ou <kbd>W A S D</kbd> pour diriger · <kbd>Espace</kbd> pour jouer / pause · <kbd>R</kbd> pour recommencer. Les touches agissent uniquement sur le plateau.</p>
+            <p>Sans course contre la montre : choisissez <strong>Pas à pas</strong>. Chaque direction fait avancer d’une case ; « Lire la position » annonce la tête et la cible, en colonnes et lignes.</p>
+            <button id="read-position" disabled>Lire la position</button>
+            <p id="position-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+          </div>
+          <div class="dpad" role="group" aria-label="Commandes de direction">
+            <button data-direction="up" aria-label="Aller en haut" disabled>↑</button>
+            <button data-direction="left" aria-label="Aller à gauche" disabled>←</button>
+            <span aria-hidden="true" class="dpad-center">+</span>
+            <button data-direction="right" aria-label="Aller à droite" disabled>→</button>
+            <button data-direction="down" aria-label="Aller en bas" disabled>↓</button>
+          </div>
+        </div>
+        <div class="legend"><span>Moins</span><i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i><span>Plus de contributions</span><span class="legend-note">Le calendrier est replié sur 26 colonnes × 14 lignes.</span></div>
+        <noscript><p class="error">JavaScript est nécessaire pour jouer. <a href="https://www.zecloud.fr/">Le blog</a> et <a href="https://github.com/zecloud">mon profil GitHub</a> restent accessibles sans JavaScript.</p></noscript>
+      </section>
+      <section class="explore" aria-label="Pour continuer">
+        <a href="https://www.zecloud.fr/"><span>01 / LIRE</span><h2>Notes depuis le cloud <span aria-hidden="true">↗</span></h2><p>Expériences, conférences et explorations autour du cloud et de l’IA.</p></a>
+        <a href="https://github.com/zecloud"><span>02 / CONSTRUIRE</span><h2>Le code, en ouvert <span aria-hidden="true">↗</span></h2><p>Retrouvez mes projets, mes contributions et mes expérimentations sur GitHub.</p></a>
+      </section>
+    </main>
+    <footer><span>ZeCloud · Aymeric Weinbach</span><span>Du code, de la curiosité, et une case de plus.</span><a href="https://www.zecloud.fr/">Retour au blog ↑</a></footer>
+  </div>
+</body>
+</html>
