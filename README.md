@@ -23,7 +23,7 @@ No PR is merged automatically.
 ```sh
 python -m http.server 8000
 # Open http://localhost:8000/
-node --test tests/snake.test.mjs
+node --test tests/*.test.mjs
 python -m unittest discover -s tests -p 'test_*.py'
 node --input-type=module --check < app.js
 ```
@@ -49,7 +49,10 @@ a neutral practice grid rather than inventing contributions.
 The latest 364 days are folded into 26 columns of 14 days each, oldest first,
 top to bottom then left to right. Green intensity is GitHub's 0–4 level, not a
 claimed count of contributions. Dotted contribution-day targets are collected
-one at a time; collecting all targets wins.
+one at a time. The win objective is the smaller of the target count and 361
+(364 cells minus the initial three snake segments). The counter shows meals
+remaining to reach that objective. This makes even a full practice/contribution
+grid winnable; the snake wins immediately on filling the board.
 
 ## Controls and accessibility
 
@@ -58,6 +61,8 @@ the focused board; Space starts/pauses, Escape pauses, R resets. Direction butto
 support touch and keyboard use. Walls and the snake's body end play; only one
 turn is accepted per tick. The game pauses when you leave its controls, hide
 the page, or switch windows, and never resumes automatically.
+Changing speed clears any pending timed turn so untimed movement cannot be
+blocked by a direction queued before the pause.
 
 **Pas à pas** advances one cell per valid direction without a timer. It is the
 default under reduced motion. Text coordinates and **Lire la position** expose

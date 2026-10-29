@@ -90,11 +90,34 @@ test("body collisions end play but moving into the departing tail is legal", () 
 test("eating the final target wins", () => {
   const game = running();
   game.targets = [pointIndex({ x: 5, y: 6 })];
+  game.goal = 1;
   game.food = game.targets[0];
   tick(game);
   assert.equal(game.status, "won");
   assert.equal(game.score, 1);
   assert.equal(game.food, null);
+});
+
+test("full contribution and practice boards have a reachable objective", () => {
+  for (const level of [0, 1]) {
+    const game = createGame(days.map(() => ({ level })));
+    assert.equal(game.goal, SIZE - 3);
+    game.status = "running";
+    game.score = game.goal - 1;
+    const route = Array.from({ length: WIDTH }, (_, x) =>
+      Array.from({ length: HEIGHT }, (_, row) => ({ x, y: x % 2 === 0 ? row : HEIGHT - 1 - row }))).flat();
+    const last = route.at(-1);
+    game.snake = route.slice(0, -1).reverse();
+    game.direction = "up";
+    game.food = pointIndex(last);
+    game.eaten = route.slice(3, -1).map(pointIndex);
+    tick(game);
+    assert.equal(game.status, "won");
+    assert.equal(game.snake.length, SIZE);
+    assert.equal(game.goal - game.score, 0);
+    assert.equal(game.food, null);
+    assert.equal(new Set(game.snake.map(pointIndex)).size, SIZE);
+  }
 });
 
 test("targets temporarily under the snake are not treated as a win", () => {

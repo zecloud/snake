@@ -35,11 +35,17 @@ export function createGame(days, random = Math.random) {
     targets: targets.length ? targets : Array.from({ length: SIZE }, (_, index) => index),
     practice: targets.length === 0, eaten: [], food: null,
   };
+  state.goal = Math.min(state.targets.length, SIZE - state.snake.length);
   placeFood(state, random);
   return state;
 }
 
 function placeFood(state, random) {
+  if (state.score >= state.goal) {
+    state.food = null;
+    state.status = "won";
+    return;
+  }
   const occupied = new Set(state.snake.map(pointIndex));
   const available = state.targets.filter(index => !state.eaten.includes(index) && !occupied.has(index));
   if (!available.length) {

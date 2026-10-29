@@ -21,7 +21,7 @@ if (matchMedia("(prefers-reduced-motion: reduce)").matches) speed.value = "step"
 
 function position() {
   const head = game.snake[0];
-  const target = game.food === null ? "Cible momentanément sous le serpent." :
+  const target = game.status === "won" ? "Objectif atteint." : game.food === null ? "Cible momentanément sous le serpent." :
     `Cible : colonne ${Math.floor(game.food / HEIGHT) + 1}, ligne ${game.food % HEIGHT + 1}.`;
   return `Tête : colonne ${head.x + 1}, ligne ${head.y + 1}. Direction : ${{ up: "haut", right: "droite", down: "bas", left: "gauche" }[game.direction]}. ${target}`;
 }
@@ -36,14 +36,14 @@ function render() {
     cells[pointIndex(segment)].classList.add(index === 0 ? "head" : "snake");
   });
   $("score").textContent = game.score;
-  $("remaining").textContent = `${game.targets.length - game.score} à croquer`;
+  $("remaining").textContent = `${game.goal - game.score} pour gagner`;
   $("position").textContent = position();
   $("overlay").hidden = game.status === "running";
   const text = {
     ready: ["Une petite pause dans le code ?", "Choisissez votre rythme, puis lancez la partie."],
     paused: ["Pause. Le code peut attendre.", "Reprenez quand vous voulez."],
     lost: ["Fin de la balade.", `${game.score} case(s) croquée(s). Une autre tentative ?`],
-    won: ["Une grille bien digérée !", "Toutes les cibles sont croquées. Bien joué."],
+    won: ["Une grille bien digérée !", "Objectif atteint. Bien joué."],
   }[game.status];
   if (text) {
     $("overlay-title").textContent = text[0];
@@ -71,7 +71,7 @@ function advance() {
     status.textContent = `Partie terminée : collision. Score : ${game.score}. Rejouez avec le bouton ou la touche Espace.`;
   } else if (game.status === "won") {
     stopTimer();
-    status.textContent = `Bravo ! Toutes les cibles sont croquées. Score : ${game.score}.`;
+    status.textContent = `Bravo ! Objectif atteint. Score : ${game.score}.`;
   } else if (game.score !== score) {
     status.textContent = game.practice ? `Case d’entraînement croquée. Score : ${game.score}.` :
       `${dateFormat.format(new Date(`${days[target].date}T00:00:00Z`))} croqué. Score : ${game.score}.`;
@@ -118,6 +118,7 @@ toggle.addEventListener("click", () => { playPause(); board.focus({ preventScrol
 restart.addEventListener("click", () => { reset(); board.focus({ preventScroll: true }); });
 speed.addEventListener("change", () => {
   pauseForFocus();
+  if (game) game.queued = null;
   status.textContent = "Rythme modifié. Lancez ou reprenez la partie.";
 });
 document.querySelectorAll("[data-direction]").forEach(button => {
